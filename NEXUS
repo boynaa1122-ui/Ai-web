@@ -1,0 +1,1018 @@
+สร้างโปรเจกต์จริงชื่อ:
+
+NEXUS MARKET AI
+
+คุณเป็น Senior Full-Stack Engineer, Financial Data Engineer และ UI/UX Designer
+
+เป้าหมายคือสร้างเว็บ Full-Stack สำหรับวิเคราะห์ตลาดหุ้นและ Cryptocurrency ที่สามารถนำขึ้น GitHub และ Deploy/Run บน Oracle Cloud Infrastructure (OCI) ได้จริง
+
+ฉันจะใช้ Antigravity CLI ทำงานใน workspace นี้
+
+IMPORTANT:
+- สร้างและแก้ไขไฟล์จริงใน workspace
+- ห้ามเพียงแสดง source code ให้ฉันคัดลอก
+- ห้ามสร้างแค่ Prototype
+- ห้ามหยุดหลังสร้าง UI
+- ให้สร้างโปรเจกต์ทั้งหมดด้วยตัวเอง
+- ให้ติดตั้ง dependencies ที่จำเป็น
+- ให้ตรวจสอบ TypeScript
+- ให้ตรวจสอบ build
+- ให้แก้ error ที่พบด้วยตัวเอง
+- อย่าสร้าง API key จริง
+- ห้าม commit secrets
+
+==================================================
+TARGET DEPLOYMENT
+==================================================
+
+เป้าหมายหลัก:
+
+GitHub
+↓
+Oracle Cloud Infrastructure
+↓
+Ubuntu Linux
+↓
+Docker
+↓
+Nginx
+↓
+NEXUS MARKET AI
+
+ต้องสามารถรันบน OCI Compute VM ได้
+
+ออกแบบให้รองรับ OCI Ampere A1 ARM64 ด้วย
+
+อย่าใช้ dependency ที่ไม่มี ARM64 support โดยไม่จำเป็น
+
+==================================================
+TECH STACK
+==================================================
+
+Frontend:
+
+React
+TypeScript
+Vite
+Tailwind CSS
+
+Chart:
+
+TradingView Lightweight Charts
+
+Backend:
+
+Node.js
+TypeScript
+Fastify หรือ Express
+
+เลือก Fastify ถ้าเหมาะสมกับ performance
+
+Database:
+
+PostgreSQL
+
+ORM:
+
+Prisma
+
+Cache:
+
+Redis
+
+Container:
+
+Docker
+Docker Compose
+
+Reverse Proxy:
+
+Nginx
+
+Deployment:
+
+Oracle Cloud Infrastructure
+
+OS target:
+
+Ubuntu Linux ARM64
+
+==================================================
+PROJECT STRUCTURE
+==================================================
+
+สร้างโครงสร้างประมาณนี้:
+
+nexus-market-ai/
+
+frontend/
+  src/
+    components/
+    pages/
+    charts/
+    services/
+    types/
+    hooks/
+    App.tsx
+    main.tsx
+    index.css
+  package.json
+  vite.config.ts
+  tsconfig.json
+
+backend/
+  src/
+    routes/
+    services/
+    providers/
+    analysis/
+    database/
+    types/
+    utils/
+    server.ts
+  package.json
+  tsconfig.json
+
+prisma/
+  schema.prisma
+
+nginx/
+  nginx.conf
+
+docker/
+  ...
+
+docker-compose.yml
+
+Dockerfile
+
+.env.example
+
+.gitignore
+
+README.md
+
+package.json
+
+==================================================
+UI
+==================================================
+
+สร้าง UI ตามแนวคิดที่เราคุยกัน:
+
+NEXUS MARKET AI
+
+STOCKS • CRYPTO • INTELLIGENCE
+
+Theme:
+
+Dark Navy
+Deep Blue
+Neon Blue
+Cyan
+Purple
+
+ใช้ Neon Glow อย่างพอดี
+
+ต้องดู:
+
+Premium
+Modern
+Professional
+Futuristic
+Financial Terminal
+
+ไม่ทำ UI แบบ Hacker ที่รก
+
+ไม่ใช้สี Neon มากจนอ่านยาก
+
+ต้องมี contrast สูง
+
+==================================================
+RESPONSIVE
+==================================================
+
+รองรับ:
+
+Android Mobile
+Tablet
+Desktop
+
+Mobile:
+
+Bottom Navigation
+
+Desktop:
+
+Sidebar
+
+ต้องไม่มี horizontal overflow ของ body
+
+รองรับ:
+
+360px
+390px
+412px
+768px
+1024px
+1440px
+
+==================================================
+MAIN DASHBOARD
+==================================================
+
+สร้าง:
+
+Header
+
+NEXUS MARKET AI
+
+Search
+
+LIVE indicator
+
+Notifications
+
+Settings
+
+Market Overview
+
+SET
+
+S&P 500
+
+NASDAQ
+
+BTC
+
+ETH
+
+แสดง:
+
+Price
+Change
+Percentage
+Mini Chart
+
+==================================================
+TRADING CHART
+==================================================
+
+ใช้ TradingView Lightweight Charts
+
+ต้องมี:
+
+Candlestick
+
+Volume
+
+Crosshair
+
+Tooltip
+
+Current Price
+
+Timeframes:
+
+1m
+5m
+15m
+1h
+4h
+1D
+1W
+
+Indicators:
+
+EMA 9
+EMA 20
+EMA 50
+EMA 200
+SMA
+RSI
+MACD
+Bollinger Bands
+
+Support
+
+Resistance
+
+ต้องสามารถเปลี่ยน Symbol ได้
+
+ตัวอย่าง:
+
+AAPL
+
+NVDA
+
+MSFT
+
+AMZN
+
+TSLA
+
+BTC/USD
+
+ETH/USD
+
+SOL/USD
+
+==================================================
+MARKET DATA
+==================================================
+
+สร้าง Market Data Provider abstraction
+
+รองรับการเชื่อมต่อ:
+
+Twelve Data
+Alpha Vantage
+CoinGecko
+
+ห้าม hard-code API keys
+
+ใช้ environment variables
+
+สร้าง:
+
+.env.example
+
+ตัวอย่าง:
+
+TWELVE_DATA_API_KEY=
+ALPHA_VANTAGE_API_KEY=
+COINGECKO_API_KEY=
+
+==================================================
+REAL DATA
+==================================================
+
+เมื่อมี API KEY:
+
+ดึงข้อมูลตลาดจริง
+
+เมื่อไม่มี API KEY:
+
+ใช้ Demo Data
+
+แต่ต้องแสดง:
+
+DEMO DATA
+
+ห้ามแสดง Demo Data ว่า Real-time
+
+ระบบต้องไม่ crash เมื่อ API ไม่พร้อมใช้งาน
+
+==================================================
+SIGNAL ENGINE
+==================================================
+
+สร้าง Technical Analysis Engine จริง
+
+คำนวณ:
+
+EMA
+SMA
+RSI
+MACD
+Bollinger Bands
+Volume
+Momentum
+Trend
+Support
+Resistance
+
+สร้าง Signal:
+
+BUY SIGNAL
+SELL SIGNAL
+WATCH
+NEUTRAL
+
+คะแนน:
+
+0-100
+
+ตัวอย่าง:
+
+BUY SIGNAL
+76/100
+
+Reasons:
+
+Price above EMA20
+EMA20 above EMA50
+RSI bullish
+MACD bullish
+Volume increasing
+
+ต้องเก็บข้อมูล:
+
+signal
+score
+reasons
+trend
+momentum
+support
+resistance
+shortTerm
+longTerm
+
+==================================================
+SHORT TERM
+==================================================
+
+ใช้ข้อมูล:
+
+1m
+5m
+15m
+1h
+4h
+
+วิเคราะห์:
+
+Momentum
+Trend
+Volume
+RSI
+MACD
+
+==================================================
+LONG TERM
+==================================================
+
+ใช้:
+
+1D
+1W
+1M
+
+วิเคราะห์:
+
+Trend
+SMA200
+Momentum
+Volume
+Fundamental data เมื่อมี
+
+==================================================
+IMPORTANT FINANCIAL LANGUAGE
+==================================================
+
+ห้ามเขียนว่า:
+
+ราคาจะขึ้นแน่นอน
+ราคาจะลงแน่นอน
+กำไรแน่นอน
+ซื้อแล้วกำไร
+ขายแล้วกำไร
+
+ให้ใช้:
+
+BUY SIGNAL
+SELL SIGNAL
+WATCH
+NEUTRAL
+
+พร้อมเหตุผลจากข้อมูล
+
+แสดง disclaimer:
+
+"สัญญาณนี้สร้างจากข้อมูลตลาดและตัวชี้วัดทางเทคนิค
+ใช้เพื่อประกอบการศึกษา ไม่ใช่คำแนะนำการลงทุน"
+
+==================================================
+NEWS
+==================================================
+
+สร้าง News Provider
+
+รองรับข่าวจาก API ภายนอก
+
+แสดง:
+
+Headline
+Source
+Time
+Symbol
+Category
+Sentiment
+
+Sentiment:
+
+POSITIVE
+NEGATIVE
+NEUTRAL
+
+ถ้าไม่มี API:
+
+แสดง DEMO NEWS
+
+ห้ามนำ Demo News ไปแสดงว่าเป็นข่าวจริง
+
+==================================================
+AI ANALYSIS
+==================================================
+
+เตรียมระบบสำหรับ Gemini API
+
+Environment:
+
+GEMINI_API_KEY=
+
+AI ได้รับข้อมูล:
+
+Market Data
+Technical Indicators
+Signal
+News
+Sentiment
+
+ให้สร้าง:
+
+Market Summary
+
+Bullish Factors
+
+Bearish Factors
+
+Risk Factors
+
+Technical Explanation
+
+AI ห้ามสร้างข่าวปลอม
+
+AI ห้ามรับประกันราคาจะขึ้นหรือลง
+
+AI ต้องอ้างอิงข้อมูลที่ระบบส่งให้เท่านั้น
+
+==================================================
+WATCHLIST
+==================================================
+
+สร้าง Watchlist
+
+เพิ่ม Symbol
+
+ลบ Symbol
+
+ราคา
+
+Change
+
+Signal
+
+Score
+
+==================================================
+PRICE ALERT
+==================================================
+
+สร้างระบบ:
+
+Symbol
+
+Target Price
+
+Above
+
+Below
+
+Enabled
+
+Disabled
+
+บันทึกใน PostgreSQL
+
+==================================================
+PORTFOLIO
+==================================================
+
+สร้าง Portfolio UI
+
+Asset
+
+Quantity
+
+Average Price
+
+Current Price
+
+P/L
+
+P/L %
+
+ยังไม่เชื่อมบัญชีซื้อขายจริง
+
+==================================================
+NEWS ANALYSIS
+==================================================
+
+ทำหน้า News
+
+Filter:
+
+All
+Stocks
+Crypto
+Positive
+Negative
+Neutral
+
+แสดง AI summary ของข่าว
+
+==================================================
+DATABASE
+==================================================
+
+ใช้ PostgreSQL
+
+ใช้ Prisma
+
+สร้าง:
+
+users
+
+watchlists
+
+watchlist_items
+
+alerts
+
+signals
+
+news
+
+market_data
+
+portfolio
+
+portfolio_items
+
+settings
+
+สร้าง indexes ที่เหมาะสม
+
+==================================================
+REDIS
+==================================================
+
+ใช้ Redis สำหรับ:
+
+Market Cache
+
+News Cache
+
+API Response Cache
+
+ลดจำนวน API requests
+
+ตั้ง TTL ให้เหมาะสม
+
+==================================================
+BACKEND API
+==================================================
+
+สร้าง:
+
+GET /api/health
+
+GET /api/markets
+
+GET /api/market/:symbol
+
+GET /api/crypto/:symbol
+
+GET /api/chart/:symbol
+
+GET /api/signals
+
+GET /api/signals/:symbol
+
+GET /api/news
+
+GET /api/watchlist
+
+POST /api/watchlist
+
+DELETE /api/watchlist/:symbol
+
+GET /api/alerts
+
+POST /api/alerts
+
+DELETE /api/alerts/:id
+
+GET /api/portfolio
+
+POST /api/portfolio
+
+==================================================
+SECURITY
+==================================================
+
+ห้ามส่ง API keys ไป Frontend
+
+Secrets ต้องอยู่ Backend
+
+ใช้ environment variables
+
+Validate request
+
+Validate symbol
+
+Validate numeric values
+
+จัดการ API errors
+
+CORS อย่างเหมาะสม
+
+Security headers
+
+Rate limiting เบื้องต้น
+
+ไม่ log API keys
+
+ไม่ commit .env
+
+==================================================
+DOCKER
+==================================================
+
+สร้าง Dockerfile ที่ใช้งานจริง
+
+รองรับ ARM64
+
+สร้าง docker-compose.yml
+
+services:
+
+frontend
+
+backend
+
+postgres
+
+redis
+
+nginx
+
+ต้องสามารถรัน:
+
+docker compose up -d
+
+ได้
+
+ต้องสามารถ:
+
+docker compose ps
+
+docker compose logs
+
+ได้
+
+==================================================
+NGINX
+==================================================
+
+สร้าง nginx.conf
+
+ให้:
+
+/
+
+ส่งไป Frontend
+
+/api/
+
+ส่งไป Backend
+
+เปิด gzip
+
+ตั้ง cache headers สำหรับ static assets
+
+security headers
+
+รองรับ SPA routing
+
+==================================================
+HEALTH CHECK
+==================================================
+
+Frontend ต้องตรวจสอบได้
+
+Backend:
+
+GET /api/health
+
+ควรคืน:
+
+{
+  "status": "ok"
+}
+
+ตรวจสอบ:
+
+PostgreSQL
+
+Redis
+
+Market API
+
+ถ้าบริการภายนอกไม่พร้อม:
+
+อย่าให้ server crash
+
+==================================================
+OCI DEPLOYMENT
+==================================================
+
+สร้าง README ภาษาไทย
+
+อธิบายวิธี Deploy บน Oracle Cloud Infrastructure
+
+ขั้นตอน:
+
+1. สร้าง OCI Compute VM
+
+2. เลือก Ubuntu ARM64
+
+3. เปิด port 80
+
+4. เปิด port 443
+
+5. SSH เข้า VM
+
+6. ติดตั้ง Docker
+
+7. ติดตั้ง Docker Compose
+
+8. Clone GitHub
+
+9. สร้าง .env
+
+10. ตั้ง Database
+
+11. docker compose build
+
+12. docker compose up -d
+
+13. ตรวจสอบ health
+
+14. เปิด IP ของ OCI
+
+==================================================
+GITHUB
+==================================================
+
+สร้าง .gitignore
+
+ห้าม commit:
+
+.env
+.env.*
+node_modules
+dist
+coverage
+postgres data
+redis data
+
+สร้าง README.md
+
+==================================================
+ENVIRONMENT
+==================================================
+
+สร้าง .env.example
+
+DATABASE_URL=
+REDIS_URL=
+TWELVE_DATA_API_KEY=
+ALPHA_VANTAGE_API_KEY=
+COINGECKO_API_KEY=
+GEMINI_API_KEY=
+PORT=3000
+
+==================================================
+PERFORMANCE
+==================================================
+
+ต้อง:
+
+Fast loading
+
+Lazy loading
+
+API caching
+
+Redis caching
+
+Database indexes
+
+ไม่เรียก API ภายนอกซ้ำโดยไม่จำเป็น
+
+==================================================
+ERROR HANDLING
+==================================================
+
+ถ้า:
+
+Market API down
+
+News API down
+
+Gemini API down
+
+Redis down
+
+Postgres down
+
+ระบบต้องแสดง error ที่อ่านง่าย
+
+และไม่ทำให้ Frontend crash
+
+==================================================
+TESTING
+==================================================
+
+สร้าง basic tests สำหรับ:
+
+Signal Engine
+
+RSI
+
+MACD
+
+EMA
+
+BUY/SELL logic
+
+API health
+
+ตรวจสอบ TypeScript
+
+ตรวจสอบ build
+
+==================================================
+SEO
+==================================================
+
+สร้าง:
+
+title
+
+description
+
+Open Graph
+
+robots
+
+favicon
+
+semantic HTML
+
+==================================================
+FINAL TASK
+==================================================
+
+อย่าเพียงเขียนแผน
+
+ให้ลงมือสร้างไฟล์ทั้งหมดใน workspace นี้ทันที
+
+ขั้นตอน:
+
+1. สร้าง project structure
+2. สร้าง source files
+3. ติดตั้ง dependencies
+4. สร้าง database schema
+5. สร้าง API
+6. สร้าง frontend
+7. สร้าง chart
+8. สร้าง signal engine
+9. สร้าง Docker
+10. สร้าง Nginx
+11. สร้าง README
+12. ตรวจ TypeScript
+13. Run tests
+14. Run build
+15. แก้ errors ทั้งหมดที่พบ
+
+ห้ามหยุดหลังทำ UI
+
+ห้ามถามฉันทีละขั้น
+
+ถ้าต้องตัดสินใจเรื่อง implementation ให้เลือกวิธีที่เหมาะกับการ Deploy บน Oracle Cloud Infrastructure และ ARM64
+
+เมื่อเสร็จแล้วสรุป:
+
+- ไฟล์ที่สร้าง
+- dependencies
+- build status
+- test status
+- วิธีรัน local
+- วิธี deploy OCI
+- environment variables ที่ต้องตั้ง
+- ปัญหาที่เหลือ ถ้ามี
+
+เริ่มสร้างโปรเจกต์จริงใน workspace ตอนนี้
