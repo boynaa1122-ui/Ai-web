@@ -9,6 +9,7 @@ import { AiAnalysisCard } from './components/AiAnalysisCard';
 import { BottomTables } from './components/BottomTables';
 import { Modals } from './components/Modals';
 import { Footer } from './components/Footer';
+import { AiMascotBubble } from './components/AiMascotBubble';
 import { api } from './services/api';
 import {
   MarketTicker,
@@ -251,6 +252,9 @@ export function App() {
           setNotificationsOpen={setNotificationsOpen}
         />
       )}
+
+      {/* Floating AI Cartoon Robot / Mascot Bubble */}
+      <AiMascotBubble currentSymbol={selectedSymbol} currentPrice={currentTicker?.price} />
     </div>
   );
 }
