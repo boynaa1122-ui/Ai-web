@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String      @id @default(cuid())
+  email      String      @unique
+  name       String?
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  watchlists Watchlist[]
+  alerts     Alert[]
+  portfolios Portfolio[]
+
+  @@map("users")
+}
+
+model Watchlist {
+  id        String          @id @default(cuid())
+  name      String
+  userId    String
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     WatchlistItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@map("watchlists")
+}
+
+model WatchlistItem {
+  id          String    @id @default(cuid())
+  symbol      String
+  watchlistId String
+  watchlist   Watchlist @relation(fields: [watchlistId], references: [id], onDelete: Cascade)
+  addedAt     DateTime  @default(now())
+
+  @@unique([watchlistId, symbol])
+  @@map("watchlist_items")
+}
+
+model Alert {
+  id          String   @id @default(cuid())
+  symbol      String
+  targetPrice Float
+  condition   String   // ABOVE or BELOW
+  enabled     Boolean  @default(true)
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([symbol, enabled])
+  @@map("alerts")
+}
+
+model Signal {
+  id          String   @id @default(cuid())
+  symbol      String
+  type        String   // BUY SIGNAL, SELL SIGNAL, WATCH, NEUTRAL
+  score       Int      // 0 - 100
+  reasons     String[]
+  support     Float[]
+  resistance  Float[]
+  timeframe   String   @default("1h")
+  createdAt   DateTime @default(now())
+
+  @@index([symbol, createdAt])
+  @@map("signals")
+}
+
+model News {
+  id         String   @id @default(cuid())
+  title      String
+  source     String
+  category   String
+  sentiment  String
+  aiSummary  String
+  url        String?
+  publishedAt DateTime @default(now())
+
+  @@index([category, publishedAt])
+  @@map("news")
+}
+
+model MarketData {
+  id        String   @id @default(cuid())
+  symbol    String
+  timeframe String
+  time      DateTime
+  open      Float
+  high      Float
+  low       Float
+  close     Float
+  volume    Float
+
+  @@unique([symbol, timeframe, time])
+  @@index([symbol, timeframe])
+  @@map("market_data")
+}
+
+model Portfolio {
+  id        String          @id @default(cuid())
+  name      String          @default("Main Portfolio")
+  userId    String
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     PortfolioItem[]
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@map("portfolio")
+}
+
+model PortfolioItem {
+  id          String    @id @default(cuid())
+  asset       String
+  quantity    Float
+  averagePrice Float
+  portfolioId String
+  portfolio   Portfolio @relation(fields: [portfolioId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("portfolio_items")
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}

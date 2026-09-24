@@ -1,0 +1,23 @@
+{
+  "name": "nexus-market-ai",
+  "version": "1.0.0",
+  "description": "NEXUS MARKET AI — Advanced Financial Terminal & Intelligence Platform",
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "build:backend": "cd backend && npm run build",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "npm run build:backend && npm run build:frontend",
+    "test": "cd backend && npm run test"
+  },
+  "keywords": [
+    "stocks",
+    "crypto",
+    "trading",
+    "technical-analysis",
+    "ai",
+    "financial-terminal"
+  ],
+  "author": "NEXUS Core Team",
+  "license": "MIT"
+}
