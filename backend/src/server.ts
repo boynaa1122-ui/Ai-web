@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import rateLimit from 'express-rate-limit';
 import { MarketDataProvider } from './providers/marketData.js';
 import { NewsProvider } from './providers/newsProvider.js';
 import { AiAnalysisService } from './services/aiService.js';
@@ -11,8 +12,26 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+// Security: Rate Limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 300, // limit each IP to 300 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests from this IP, please try again after 15 minutes.' }
+});
+
+// Security: Configurable CORS
+const corsOrigin = process.env.CORS_ORIGIN;
+const corsOptions: cors.CorsOptions = {
+  origin: corsOrigin ? corsOrigin.split(',') : true,
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.use(express.json({ limit: '1mb' }));
+app.use('/api/', apiLimiter);
 
 const marketData = new MarketDataProvider();
 const newsProvider = new NewsProvider();
