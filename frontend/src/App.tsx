@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { Sidebar } from './components/Sidebar';
 import { MarketOverview } from './components/MarketOverview';
-import { ChartSection } from './components/ChartSection';
+import { TradingViewWidget } from './components/TradingViewWidget';
 import { SignalCard } from './components/SignalCard';
 import { NewsSection } from './components/NewsSection';
 import { AiAnalysisCard } from './components/AiAnalysisCard';
@@ -167,14 +167,7 @@ export function App() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
             {/* Chart Area */}
             <div className="lg:col-span-8 flex flex-col">
-              <ChartSection
-                symbol={selectedSymbol}
-                ticker={currentTicker}
-                candles={candles}
-                timeframe={timeframe}
-                setTimeframe={setTimeframe}
-                isDemo={isDemo}
-              />
+              <TradingViewWidget symbol={selectedSymbol} />
             </div>
 
             {/* Signal Card */}
