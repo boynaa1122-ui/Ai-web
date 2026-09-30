@@ -163,7 +163,7 @@ app.get('/api/ai/analysis', async (req: Request, res: Response) => {
 // Featured Tables Data (หุ้นเด่น, เหรียญคริปโต, แนวโน้ม)
 app.get('/api/featured', async (req: Request, res: Response) => {
   try {
-    const [btc, eth, sol, xrp, doge, bnb, avax, dot, aapl, nvda, tsla, msft, ptt, bbl] = await Promise.all([
+    const [btc, eth, sol, xrp, doge, bnb, avax, dot, aapl, nvda, tsla, msft, ptt, bbl, gold, oil] = await Promise.all([
       marketData.getTicker('BTC/USDT'),
       marketData.getTicker('ETH/USDT'),
       marketData.getTicker('SOL/USDT'),
@@ -177,7 +177,7 @@ app.get('/api/featured', async (req: Request, res: Response) => {
       marketData.getTicker('TSLA'),
       marketData.getTicker('MSFT'),
       marketData.getTicker('PTT'),
-      marketData.getTicker('BBL')
+      marketData.getTicker('BBL'), marketData.getTicker('GOLD'), marketData.getTicker('OIL')
     ]);
 
     const fmt = (t: any) => ({
@@ -193,7 +193,7 @@ app.get('/api/featured', async (req: Request, res: Response) => {
       topStocks: {
         thai: [
           fmt(ptt),
-          fmt(bbl),
+          fmt(bbl), fmt(gold), fmt(oil),
           { name: 'CPALL', fullName: 'CP All PCL', price: 64.25, change: '+0.78%', signal: 'BUY', target: 68.00 },
           { name: 'ADVANC', fullName: 'Advanced Info Service', price: 284.00, change: '+1.12%', signal: 'BUY', target: 295.00 }
         ],

@@ -29,7 +29,7 @@ const YAHOO_SYMBOL_MAP: Record<string, { symbol: string; name: string; category:
   'TSLA': { symbol: 'TSLA', name: 'Tesla Inc.', category: 'stock' },
   'MSFT': { symbol: 'MSFT', name: 'Microsoft Corp.', category: 'stock' },
   'PTT': { symbol: 'PTT.BK', name: 'PTT PCL', category: 'stock' },
-  'BBL': { symbol: 'BBL.BK', name: 'Bangkok Bank', category: 'stock' },
+  'BBL': { symbol: 'BBL.BK', name: 'Bangkok Bank', category: 'stock' },  'GOLD': { symbol: 'GC=F', name: 'Gold Futures', category: 'index' },  'OIL': { symbol: 'CL=F', name: 'Crude Oil Futures', category: 'index' },
   'SET': { symbol: '^SET.BK', name: 'SET Index (ไทย)', category: 'index' },
   'S&P 500': { symbol: '^GSPC', name: 'S&P 500', category: 'index' },
   'NASDAQ': { symbol: '^IXIC', name: 'NASDAQ 100', category: 'index' }
@@ -79,7 +79,7 @@ export class MarketDataProvider {
   }
 
   async getAllOverviewTickers(): Promise<MarketTicker[]> {
-    const symbols = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT', 'S&P 500', 'NASDAQ', 'AAPL', 'NVDA', 'PTT'];
+    const symbols = ['BTC/USDT', 'ETH/USDT', 'SOL/USDT', 'S&P 500', 'NASDAQ', 'AAPL', 'NVDA',  'PTT', 'GOLD', 'OIL'];
     const results = await Promise.allSettled(symbols.map((s) => this.getTicker(s)));
     return results.map((r, idx) => {
       if (r.status === 'fulfilled') return r.value;
