@@ -164,25 +164,7 @@ export function App() {
           />
 
           {/* 2. Middle Grid: Left Chart (65%), Right Signal & News (35%) */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-            {/* Chart Area */}
-            <div className="lg:col-span-8 flex flex-col">
-              <TradingViewWidget symbol={selectedSymbol} />
-            </div>
-
-            {/* Signal Card */}
-            <div className="lg:col-span-4 flex flex-col">
-              {signal && (
-                <SignalCard
-                  signal={signal}
-                  onEditSymbol={() => {
-                    const next = selectedSymbol.includes('BTC') ? 'ETH/USDT' : 'BTC/USDT';
-                    setSelectedSymbol(next);
-                  }}
-                />
-              )}
-            </div>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">            {/* Chart Area - NOW ON THE RIGHT */}             <div className="lg:col-span-8 flex flex-col">              <div className="bg-navy-900/95 rounded-2xl border border-navy-700/80 shadow-2xl overflow-hidden p-3 sm:p-4" style={{height: "530px"}}>                 <TradingViewWidget symbol={selectedSymbol} />              </div>            </div>            {/* Signal Card - NOW ON THE LEFT */}             <div className="lg:col-span-4 flex flex-col">              {signal && (                <SignalCard                  signal={signal}                  onEditSymbol={() => {                    const next = selectedSymbol.includes('BTC') ? 'ETH/USDT' : 'BTC/USDT';                    setSelectedSymbol(next);                  }}                />              )}            </div>          </div>
 
           {/* 3. News & AI Analysis Row */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
