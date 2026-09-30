@@ -7,6 +7,7 @@ export interface NewsItem {
   source: string;
   sentiment: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
   aiSummary: string;
+  fullContent: string;
   url: string;
   isDemo: boolean;
 }
@@ -21,6 +22,7 @@ export const DEMO_NEWS: NewsItem[] = [
     source: 'CoinDesk',
     sentiment: 'POSITIVE',
     aiSummary: 'สถาบันการเงินระดับโลกเพิ่มสัดส่วนการถือครอง BTC Spot ETF ส่งผลให้เกิดแรงซื้อต่อเนื่องหนุนราคาทะลุแนวต้านสำคัญ',
+    fullContent: 'Bitcoin ทะลุระดับ 104,000 ดอลลาร์เป็นครั้งแรกในประวัติศาสตร์ โดยมีปัจจัยหนุนสำคัญจากการซื้อสะสมอย่างต่อเนื่องของสถาบันการเงินยักษ์ใหญ่ผ่าน BTC Spot ETF นักวิเคราะห์มองว่าเป็นสัญญาณของการยอมรับในสินทรัพย์ดิจิทัลในฐานะ \'Digital Gold\' อย่างแท้จริง แม้จะมีแรงเทขายทำกำไรบ้างในระยะสั้น แต่แนวโน้มโดยรวมยังคงแข็งแกร่ง',
     url: '#',
     isDemo: true
   },
@@ -33,6 +35,7 @@ export const DEMO_NEWS: NewsItem[] = [
     source: 'Reuters',
     sentiment: 'POSITIVE',
     aiSummary: 'ความต้องการชิป AI รุ่นใหม่ Blackwell พุ่งสูงอย่างต่อเนื่อง ดันรายได้ Q3 โตทะลุเป้า หนุน Sentiment หุ้นกลุ่ม AI Semiconductor',
+    fullContent: 'NVIDIA ประกาศผลประกอบการไตรมาสที่ 3 ที่น่าประทับใจ โดยรายได้และกำไรเติบโตเหนือความคาดหมายของนักวิเคราะห์ จากความต้องการชิปสำหรับ AI ที่ไม่มีท่าทีว่าจะแผ่วลง โดยเฉพาะชิปรุ่น Blackwell ที่ได้รับคำสั่งซื้อล่วงหน้ามหาศาล ส่งผลให้หุ้นกลุ่มเทคโนโลยีทั่วโลกปรับตัวขึ้นตามทิศทางของ NVIDIA',
     url: '#',
     isDemo: true
   },
@@ -45,42 +48,7 @@ export const DEMO_NEWS: NewsItem[] = [
     source: 'Cointelegraph',
     sentiment: 'POSITIVE',
     aiSummary: 'กิจกรรมบน Layer 2 และปริมาณการ Stake ของ ETH เพิ่มขึ้น ทำให้อุปทานหมุนเวียนลดลง ช่วยเสริมโมเมนตัมขาขึ้น',
-    url: '#',
-    isDemo: true
-  },
-  {
-    id: 'news-4',
-    category: 'ตลาดไทย',
-    type: 'stock',
-    time: '11:15',
-    title: 'SET ปิดบวก 16.32 จุด รับข่าวเศรษฐกิจไทยและแรงซื้อจากต่างชาติ',
-    source: 'กรุงเทพธุรกิจ',
-    sentiment: 'POSITIVE',
-    aiSummary: 'Fund Flow ต่างชาติไหลกลับเข้าตลาดหุ้นไทย หนุนหุ้นกลุ่มพลังงานและการเงิน PTT, BBL ปรับตัวขึ้นโดดเด่น',
-    url: '#',
-    isDemo: true
-  },
-  {
-    id: 'news-5',
-    category: 'คริปโต',
-    type: 'crypto',
-    time: '10:05',
-    title: 'Solana (SOL) พุ่ง 8% หลังประกาศพัฒนาระบบใหม่เร็วขึ้น',
-    source: 'The Block',
-    sentiment: 'POSITIVE',
-    aiSummary: 'การอัปเกรด Firedancer ช่วยเพิ่ม Throughput และลด Latency ดึงดูดเม็ดเงินและ DeFi TVL ไหลเข้าสู่ระบบนิเวศ',
-    url: '#',
-    isDemo: true
-  },
-  {
-    id: 'news-6',
-    category: 'หุ้น',
-    type: 'stock',
-    time: '09:30',
-    title: 'ธนาคารกลางสหรัฐฯ (Fed) ส่งสัญญาณคงดอกเบี้ยตามคาดการณ์',
-    source: 'Bloomberg',
-    sentiment: 'NEUTRAL',
-    aiSummary: 'ประธานเฟดระบุว่าเงินเฟ้อเริ่มเข้าสู่กรอบเป้าหมาย แต่ยังต้องจับตาข้อมูลการจ้างงานอย่างใกล้ชิดก่อนปรับลดอัตราดอกเบี้ย',
+    fullContent: 'ราคา Ethereum ฟื้นตัวขึ้นแตะระดับ 3,250 ดอลลาร์ โดยได้รับแรงหนุนจากกิจกรรมที่เพิ่มขึ้นในเครือข่าย Layer 2 และปริมาณ ETH ที่ถูกนำไป Stake ในระบบเพิ่มขึ้นเรื่อยๆ ซึ่งส่งผลให้อุปทานหมุนเวียนในตลาดลดลง ตามกลไกของ Ethereum 2.0 ซึ่งนักวิเคราะห์เชื่อว่านี่เป็นปัจจัยพื้นฐานที่แข็งแกร่งสำหรับแนวโน้มขาขึ้นในระยะยาว',
     url: '#',
     isDemo: true
   }
@@ -99,5 +67,9 @@ export class NewsProvider {
     }
 
     return result;
+  }
+
+  getNewsById(id: string): NewsItem | undefined {
+    return DEMO_NEWS.find((n) => n.id === id);
   }
 }

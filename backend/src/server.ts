@@ -10,6 +10,8 @@ import { analyzeMarketSignals } from './analysis/technical.js';
 dotenv.config();
 
 const app = express();
+
+app.set("trust proxy", 1);
 const port = process.env.PORT || 3000;
 
 // Security: Rate Limiting
@@ -145,6 +147,7 @@ app.get('/api/news', (req: Request, res: Response) => {
   const items = newsProvider.getNews(category, sentiment);
   res.json(items);
 });
+app.get("/api/news/:id", (req: Request, res: Response) => {  const id = req.params.id;  const item = newsProvider.getNewsById(id);  if (!item) return res.status(404).json({ error: "News not found" });  res.json(item);});
 
 // AI Analysis
 app.get('/api/ai/analysis', async (req: Request, res: Response) => {
