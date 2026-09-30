@@ -161,6 +161,7 @@ export const api = {
     };
   },
 
+  async getNewsById(id: string): Promise<NewsItem> {    const res = await fetch(`${API_BASE}/news/${id}`);    return await res.json();  },
   async getNews(): Promise<NewsItem[]> {
     try {
       const res = await fetch(`${API_BASE}/news`);

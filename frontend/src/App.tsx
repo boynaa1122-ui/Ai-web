@@ -8,6 +8,7 @@ import { NewsSection } from './components/NewsSection';
 import { AiAnalysisCard } from './components/AiAnalysisCard';
 import { BottomTables } from './components/BottomTables';
 import { Modals } from './components/Modals';
+import { NewsModal } from './components/NewsModal';
 import { Footer } from './components/Footer';
 import { AiMascotBubble } from './components/AiMascotBubble';
 import { api } from './services/api';
@@ -33,6 +34,7 @@ export function App() {
   const [candles, setCandles] = useState<Candle[]>([]);
   const [signal, setSignal] = useState<SignalAnalysis | null>(null);
   const [news, setNews] = useState<NewsItem[]>([]);
+  const [selectedNewsId, setSelectedNewsId] = useState<string | null>(null);
   const [aiAnalysis, setAiAnalysis] = useState<AiMarketAnalysis | null>(null);
   const [featuredData, setFeaturedData] = useState<FeaturedData | null>(null);
   const [alerts, setAlerts] = useState<PriceAlert[]>([]);
@@ -195,7 +197,7 @@ export function App() {
               <NewsSection
                 news={news}
                 onViewAll={() => setActiveTab('news')}
-                onSelectNews={(item) => setSelectedSymbol(item.category.includes('BTC') ? 'BTC/USDT' : 'NVDA')}
+                onSelectNews={(item) => setSelectedNewsId(item.id)}
               />
             </div>
             <div className="lg:col-span-5">
@@ -254,6 +256,7 @@ export function App() {
       )}
 
       {/* Floating AI Cartoon Robot / Mascot Bubble */}
+      <NewsModal isOpen={!!selectedNewsId} onClose={() => setSelectedNewsId(null)} newsId={selectedNewsId} />
       <AiMascotBubble currentSymbol={selectedSymbol} currentPrice={currentTicker?.price} />
     </div>
   );

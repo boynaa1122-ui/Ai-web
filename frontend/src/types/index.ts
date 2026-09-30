@@ -43,6 +43,7 @@ export interface NewsItem {
   source: string;
   sentiment: 'POSITIVE' | 'NEGATIVE' | 'NEUTRAL';
   aiSummary: string;
+  fullContent?: string;
   url: string;
   isDemo: boolean;
 }
